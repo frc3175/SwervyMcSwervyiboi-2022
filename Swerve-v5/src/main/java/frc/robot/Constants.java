@@ -100,9 +100,9 @@ public final class Constants {
 
     //this is where you put the angle offsets you got from the smart dashboard
     public static double FRONT_LEFT_OFFSET = 158.378;
-    public static double FRONT_RIGHT_OFFSET = 95.94;
+    public static double FRONT_RIGHT_OFFSET = 259.52;
     public static double BACK_LEFT_OFFSET = 134.296;
-    public static double BACK_RIGHT_OFFSET = 313.26;
+    public static double BACK_RIGHT_OFFSET = 263.43;
 
     //Turning motors reversed
     public static boolean FRONT_LEFT_AZIMUTH_REVERSED = false;
