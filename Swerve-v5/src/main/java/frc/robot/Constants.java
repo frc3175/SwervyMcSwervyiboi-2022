@@ -61,7 +61,7 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         public static final double MAX_SPEED = Units.feetToMeters(16.2); //meters per second
-        public static final double MAX_ANGULAR_VELOCITY = Math.PI;
+        public static final double MAX_ANGULAR_VELOCITY = Math.PI * 2;
 
         /* Neutral Modes */
         public static final NeutralMode AZIMUTH_NEUTRAL_MODE = NeutralMode.Coast;
@@ -78,7 +78,8 @@ public final class Constants {
                CAN IDs
     ==============================*/
 
-    public static final int BACK_LEFT_DRIVE = 2; //Josh
+    //ACTUAL CAN IDS
+    /*public static final int BACK_LEFT_DRIVE = 2; //Josh
     public static final int BACK_LEFT_ENCODER = 1; //Gary 
     public static final int BACK_LEFT_AZIMUTH = 0; //Tracy
 
@@ -92,29 +93,46 @@ public final class Constants {
 
      public static final int FRONT_LEFT_DRIVE = 11; //Chad
      public static final int FRONT_LEFT_ENCODER = 7; //Jonathan 
-     public static final int FRONT_LEFT_AZIMUTH = 9; //Geraldine
+     public static final int FRONT_LEFT_AZIMUTH = 9; //Geraldine */
+
+     //TEST CAN IDS
+        public static final int BACK_LEFT_DRIVE = 5; //Josh
+    public static final int BACK_LEFT_ENCODER = 4; //Gary 
+    public static final int BACK_LEFT_AZIMUTH = 3; //Tracy
+
+    public static final int BACK_RIGHT_DRIVE = 8; //Happy
+    public static final int BACK_RIGHT_ENCODER = 10; //Bre
+    public static final int BACK_RIGHT_AZIMUTH = 6; //Samuel
+
+    public static final int FRONT_RIGHT_DRIVE = 11; //Keith
+    public static final int FRONT_RIGHT_ENCODER = 7; //Freddy Mercury
+    public static final int FRONT_RIGHT_AZIMUTH = 9; //Beth
+
+     public static final int FRONT_LEFT_DRIVE = 2; //Chad
+     public static final int FRONT_LEFT_ENCODER = 1; //Jonathan 
+     public static final int FRONT_LEFT_AZIMUTH = 0; //Geraldine */
 
     /*============================
            Module Constants
     ==============================*/
 
     //this is where you put the angle offsets you got from the smart dashboard
-    public static double FRONT_LEFT_OFFSET = 339.85;
-    public static double FRONT_RIGHT_OFFSET = 248.64;
-    public static double BACK_LEFT_OFFSET = 315.63;
-    public static double BACK_RIGHT_OFFSET = 46.43;
+    public static double FRONT_LEFT_OFFSET = 44.85;
+    public static double FRONT_RIGHT_OFFSET = 96.64;
+    public static double BACK_LEFT_OFFSET = 46.63;
+    public static double BACK_RIGHT_OFFSET = 22.43;
 
     //Turning motors reversed
     public static boolean FRONT_LEFT_AZIMUTH_REVERSED = false;
-    public static boolean FRONT_RIGHT_AZIMUTH_REVERSED = true;
+    public static boolean FRONT_RIGHT_AZIMUTH_REVERSED = false;
     public static boolean BACK_LEFT_AZIMUTH_REVERSED = false;
     public static boolean BACK_RIGHT_AZIMUTH_REVERSED = false;
 
     //Drive motors reversed
-    public static boolean FRONT_LEFT_DRIVE_REVERSED = false;
-    public static boolean FRONT_RIGHT_DRIVE_REVERSED = false;
-    public static boolean BACK_LEFT_DRIVE_REVERSED = false;
-    public static boolean BACK_RIGHT_DRIVE_REVERSED = false;
+    public static boolean FRONT_LEFT_DRIVE_REVERSED = true;
+    public static boolean FRONT_RIGHT_DRIVE_REVERSED = true;
+    public static boolean BACK_LEFT_DRIVE_REVERSED = true;
+    public static boolean BACK_RIGHT_DRIVE_REVERSED = true;
 
     //CanCoders Reversed
     public static boolean FRONT_LEFT_CANCODER_REVERSED = false;
