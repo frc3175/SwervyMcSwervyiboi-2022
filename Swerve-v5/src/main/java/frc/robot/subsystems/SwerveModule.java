@@ -40,7 +40,7 @@ public class SwerveModule {
 
         configCanCoder();
         configTurningMotor();
-        configDriveMotor();
+        configDriveMotor();   
 
         m_lastAngle = getState().angle.getDegrees();
     }

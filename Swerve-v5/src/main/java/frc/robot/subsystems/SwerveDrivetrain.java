@@ -35,7 +35,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                              Constants.FRONT_LEFT_DRIVE_REVERSED,
                              Constants.FRONT_LEFT_CANCODER_REVERSED),
             new SwerveModule(1,
-                             Constants.FRONT_LEFT_OFFSET,
+                             Constants.FRONT_RIGHT_OFFSET,
                              Constants.FRONT_RIGHT_AZIMUTH,
                              Constants.FRONT_RIGHT_DRIVE,
                              Constants.FRONT_RIGHT_ENCODER,

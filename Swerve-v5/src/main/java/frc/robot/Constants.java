@@ -11,7 +11,7 @@ public final class Constants {
 
         public static final double STICK_DEADBAND = 0.1;
 
-        public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW-
+        public static final boolean INVERT_GYRO = true; // Always ensure Gyro is CCW+ CW-
 
         /* Drivetrain Constants */
         public static final double DRIVETRAIN_WIDTH = Units.inchesToMeters(18);
@@ -78,25 +78,8 @@ public final class Constants {
                CAN IDs
     ==============================*/
 
-    //ACTUAL CAN IDS
-    /*public static final int BACK_LEFT_DRIVE = 2; //Josh
-    public static final int BACK_LEFT_ENCODER = 1; //Gary 
-    public static final int BACK_LEFT_AZIMUTH = 0; //Tracy
-
-    public static final int BACK_RIGHT_DRIVE = 5; //Happy
-    public static final int BACK_RIGHT_ENCODER = 4; //Bre
-    public static final int BACK_RIGHT_AZIMUTH = 3; //Samuel
-
-    public static final int FRONT_RIGHT_DRIVE = 8; //Keith
-    public static final int FRONT_RIGHT_ENCODER = 10; //Freddy Mercury
-    public static final int FRONT_RIGHT_AZIMUTH = 6; //Beth
-
-     public static final int FRONT_LEFT_DRIVE = 11; //Chad
-     public static final int FRONT_LEFT_ENCODER = 7; //Jonathan 
-     public static final int FRONT_LEFT_AZIMUTH = 9; //Geraldine */
-
      //TEST CAN IDS
-        public static final int BACK_LEFT_DRIVE = 5; //Josh
+    public static final int BACK_LEFT_DRIVE = 5; //Josh
     public static final int BACK_LEFT_ENCODER = 4; //Gary 
     public static final int BACK_LEFT_AZIMUTH = 3; //Tracy
 
@@ -117,10 +100,10 @@ public final class Constants {
     ==============================*/
 
     //this is where you put the angle offsets you got from the smart dashboard
-    public static double FRONT_LEFT_OFFSET = 44.85;
-    public static double FRONT_RIGHT_OFFSET = 96.64;
-    public static double BACK_LEFT_OFFSET = 46.63;
-    public static double BACK_RIGHT_OFFSET = 22.43;
+    public static double FRONT_LEFT_OFFSET = 224.25;
+    public static double FRONT_RIGHT_OFFSET = 250.84;
+    public static double BACK_LEFT_OFFSET = 223.50;
+    public static double BACK_RIGHT_OFFSET = 202.43;
 
     //Turning motors reversed
     public static boolean FRONT_LEFT_AZIMUTH_REVERSED = false;
