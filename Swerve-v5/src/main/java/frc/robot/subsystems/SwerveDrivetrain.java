@@ -111,18 +111,31 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_gyro.reset();
     }
 
+    public void keepModulesWhereTheyAre() {
+
+        for(SwerveModule mod : m_swerveModules) {
+            mod.keepModuleWhereItIs(mod.m_moduleNumber);
+        }
+
+    }
+
     @Override
     public void periodic(){
         m_swerveOdometry.update(getYaw(), getStates());  
 
         for(SwerveModule mod : m_swerveModules){
             SmartDashboard.putNumber("Mod " + mod.m_moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.m_moduleNumber + " Azimuth", mod.getState().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.m_moduleNumber + " Drive", mod.getState().speedMetersPerSecond);    
+            SmartDashboard.putNumber("Mod " + mod.m_moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+            SmartDashboard.putNumber("Mod " + mod.m_moduleNumber + " Drive Encoder", mod.getDriveEncoder());    
+            SmartDashboard.putNumber("Mod " + mod.m_moduleNumber + " Azimuth angle", mod.getState().angle.getDegrees());
         }
 
         SmartDashboard.putNumber("Gyro Yaw: ", m_gyro.getYaw());
 
+        SmartDashboard.putNumber("Test value", SmartDashboard.getNumber("Mod 1 Azimuth from Cancoder", 0));
+
     }
+
+    
 }
 

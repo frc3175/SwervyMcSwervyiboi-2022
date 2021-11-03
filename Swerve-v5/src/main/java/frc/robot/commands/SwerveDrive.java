@@ -36,6 +36,10 @@ public class SwerveDrive extends CommandBase {
     }
 
     @Override
+    public void initialize() {
+    }
+
+    @Override
     public void execute() {
         double yAxis = -m_driverController.getRawAxis(m_driveAxis);
         double xAxis = -m_driverController.getRawAxis(m_strafeAxis);

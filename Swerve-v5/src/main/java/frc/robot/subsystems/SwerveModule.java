@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.math.Conversions;
 import frc.lib.util.CTREModuleState;
 import frc.robot.Constants;
@@ -95,6 +95,10 @@ public class SwerveModule {
         return Rotation2d.fromDegrees(m_canCoder.getAbsolutePosition());
     }
 
+    public double getDriveEncoder() {
+        return m_driveMotor.getSelectedSensorPosition();
+    }
+
     public SwerveModuleState getState() {
 
         double velocity = Conversions.falconToMPS(m_driveMotor.getSelectedSensorVelocity(), Constants.WHEEL_CIRCUMFERENCE, Constants.DRIVE_GEAR_RATIO);
@@ -102,5 +106,10 @@ public class SwerveModule {
         return new SwerveModuleState(velocity, angle);
 
     }
-    
+
+    public void keepModuleWhereItIs(int moduleNumber) {
+        m_azimuthMotor.setSelectedSensorPosition(SmartDashboard.getNumber("Mod " + moduleNumber + " Azimuth angle", 0));
+    }
+
+
 }

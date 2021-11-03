@@ -93,7 +93,7 @@ public final class Constants {
 
      public static final int FRONT_LEFT_DRIVE = 2; //Chad
      public static final int FRONT_LEFT_ENCODER = 1; //Jonathan 
-     public static final int FRONT_LEFT_AZIMUTH = 0; //Geraldine */
+     public static final int FRONT_LEFT_AZIMUTH = 0; //Geraldine
 
     /*============================
            Module Constants
