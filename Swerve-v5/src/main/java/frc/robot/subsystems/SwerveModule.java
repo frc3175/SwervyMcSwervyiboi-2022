@@ -108,7 +108,13 @@ public class SwerveModule {
     }
 
     public void keepModuleWhereItIs(int moduleNumber) {
-        m_azimuthMotor.setSelectedSensorPosition(SmartDashboard.getNumber("Mod " + moduleNumber + " Azimuth angle", 0));
+        m_azimuthMotor.setSelectedSensorPosition(Conversions.degreesToFalcon(
+                                                 (SmartDashboard.getNumber("Mod " + moduleNumber + " Azimuth angle", 0) - m_offset), 
+                                                 Constants.AZIMUTH_GEAR_RATIO));
+    }
+
+    public void zeroModule() {
+        m_azimuthMotor.setSelectedSensorPosition(Conversions.degreesToFalcon(m_offset, Constants.AZIMUTH_GEAR_RATIO));
     }
 
 

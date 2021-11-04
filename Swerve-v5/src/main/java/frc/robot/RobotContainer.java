@@ -41,8 +41,7 @@ public class RobotContainer {
     boolean fieldRelative = true;
     boolean openLoop = true;
     m_swerveDrivetrain.setDefaultCommand(new SwerveDrive(m_swerveDrivetrain, m_driverController, m_translationAxis, m_strafeAxis, m_rotationAxis, fieldRelative, openLoop));
-
-    m_swerveDrivetrain.keepModulesWhereTheyAre();
+    
     // Configure the button bindings
     configureButtonBindings();
   }

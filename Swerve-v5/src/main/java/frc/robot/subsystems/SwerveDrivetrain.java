@@ -119,6 +119,14 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     }
 
+    public void zeroModules() {
+
+        for(SwerveModule mod: m_swerveModules) {
+            mod.zeroModule();
+        }
+
+    }
+
     @Override
     public void periodic(){
         m_swerveOdometry.update(getYaw(), getStates());  
