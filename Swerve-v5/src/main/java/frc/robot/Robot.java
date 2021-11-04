@@ -31,10 +31,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-    //TODO: test both of these methods (only 1 can be uncommented)
-    m_swerveDrivetrain.zeroModules();
-    //m_swerveDrivetrain.keepModulesWhereTheyAre();
-
     ctreConfigs = new CTREConfigs();
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
