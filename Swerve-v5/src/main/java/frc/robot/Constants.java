@@ -43,13 +43,13 @@ public final class Constants {
         public static final boolean DRIVE_ENABLE_CURRENT_LIMIT = true;
 
         /* Angle Motor PID Values */
-        public static final double AZIMUTH_P = 0.6;
+        public static final double AZIMUTH_P = 0.2;
         public static final double AZIMUTH_I = 0.0;
-        public static final double AZIMUTH_D = 12.0;
+        public static final double AZIMUTH_D = 0.1;
         public static final double AZIMUTH_F = 0.0;
 
         /* Drive Motor PID Values */
-        public static final double DRIVE_P = 0.10; //test
+        public static final double DRIVE_P = 0.0; //test
         public static final double DRIVE_I = 0.0;
         public static final double DRIVE_D = 0.0;
         public static final double DRIVE_F = 0.0;
