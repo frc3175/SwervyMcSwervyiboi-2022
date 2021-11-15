@@ -24,6 +24,7 @@ public class DriveForwardAuto extends SequentialCommandGroup {
         TrajectoryConfig m_config = new TrajectoryConfig(Constants.MAX_SPEED, 
                                                          Constants.AUTO_MAX_ACCELERATION_MPS_SQUARED)
                                                          .setKinematics(Constants.swerveKinematics); //TODO: tune these
+                                                         //TODO: figure out how to plot points and create a line of best fit to calculate max acceleration
 
         //Start point
         var startPoint = new Pose2d(0, 0, Rotation2d.fromDegrees(180));
