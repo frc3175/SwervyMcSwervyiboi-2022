@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import frc.robot.autos.DriveForwardAuto;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -34,6 +34,9 @@ public class RobotContainer {
 
   /* Subsystems */
   private final SwerveDrivetrain m_swerveDrivetrain = new SwerveDrivetrain();
+
+  /* Autos */
+  private final Command m_auto = new DriveForwardAuto(m_swerveDrivetrain);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -64,6 +67,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return m_auto;
   }
 }

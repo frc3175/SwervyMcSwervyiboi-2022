@@ -54,6 +54,7 @@ public final class Constants {
         public static final double DRIVE_D = 0.0;
         public static final double DRIVE_F = 0.0;
 
+        //TODO: characterize these at some point (ugggggggghhhhhhhhhhhhh)
         /* Drive Motor Characterization Values */
         public static final double DRIVE_S = (0.667 / 12); //divide by 12 to convert from volts to percent output for CTRE
         public static final double DRIVE_V = (2.44 / 12);
@@ -66,13 +67,6 @@ public final class Constants {
         /* Neutral Modes */
         public static final NeutralMode AZIMUTH_NEUTRAL_MODE = NeutralMode.Coast;
         public static final NeutralMode DRIVE_NEUTRAL_MODE = NeutralMode.Brake;
-
-        /* Motor Inverts */
-        //public static final boolean driveMotorInvert = false;
-        //public static final boolean angleMotorInvert = false;
-
-        /* Angle Encoder Invert */
-        ///public static final boolean canCoderInvert = false;
 
     /*============================
                CAN IDs
@@ -129,17 +123,15 @@ public final class Constants {
 
     //RPS IS RADIANS PER SECOND
     //MPS IS METERS PER SECOND
-    public static final double AUTO_MAX_SPEED_MPS = 3;
+    public static final double AUTO_MAX_SPEED_MPS = 4.9;
     public static final double AUTO_MAX_ACCELERATION_MPS_SQUARED = 3;
-    public static final double AUTO_MAX_ANGULAR_SPEED_RPS = Math.PI;
-    public static final double AUTO_MAX_ANGULAR_SPEED_RPS_SQUARED = Math.PI;
     
-    public static final double AUTO_P_X_CONTROLLER = 1;
+    public static final double AUTO_P_X_CONTROLLER = 1; //TODO: do these need to be tuned??
     public static final double AUTO_P_Y_CONTROLLER = 1;
     public static final double AUTO_P_THETA_CONTROLLER = 1;
     
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints THETA_CONTROLLER_CONSTRAINTS =
         new TrapezoidProfile.Constraints(
-            AUTO_MAX_ANGULAR_SPEED_RPS, AUTO_MAX_ANGULAR_SPEED_RPS_SQUARED);
+            MAX_ANGULAR_VELOCITY, (MAX_ANGULAR_VELOCITY * MAX_ANGULAR_VELOCITY));
     }

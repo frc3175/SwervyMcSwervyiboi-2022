@@ -16,35 +16,40 @@ import frc.robot.Constants;
 import frc.robot.subsystems.SwerveDrivetrain;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 
-public class DriveForwardAuto extends SequentialCommandGroup{
+public class DriveForwardAuto extends SequentialCommandGroup {
 
     public DriveForwardAuto(SwerveDrivetrain m_swerveDrivetrain) {
 
+        //configure trajectory with maximum speed and acceleration
         TrajectoryConfig m_config = new TrajectoryConfig(Constants.MAX_SPEED, 
                                                          Constants.AUTO_MAX_ACCELERATION_MPS_SQUARED)
                                                          .setKinematics(Constants.swerveKinematics); //TODO: tune these
 
         //Start point
-        var startPoint = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
+        var startPoint = new Pose2d(0, 0, Rotation2d.fromDegrees(180));
 
         //Waypoints
         var interiorWaypoints = new ArrayList<Translation2d>();
-        interiorWaypoints.add(new Translation2d(0, Units.feetToMeters(1)));
+        interiorWaypoints.add(new Translation2d(Units.feetToMeters(-2), Units.feetToMeters(0)));
 
         //End point
-        var endPoint = new Pose2d(0, Units.feetToMeters(1), Rotation2d.fromDegrees(0));
+        var endPoint = new Pose2d(Units.feetToMeters(-4), Units.feetToMeters(0), Rotation2d.fromDegrees(180));
 
+        //creates a trajectory
         var m_trajectory = TrajectoryGenerator.generateTrajectory(startPoint,
                                                                   interiorWaypoints,
                                                                   endPoint,
                                                                   m_config);
 
+        //Creates pid controllers for translation, strafe, and theta
         var m_translationController = new PIDController(Constants.AUTO_P_X_CONTROLLER, 0, 0);
         var m_strafeController = new PIDController(Constants.AUTO_P_Y_CONTROLLER, 0, 0);
         var m_thetaController = new ProfiledPIDController(Constants.AUTO_P_THETA_CONTROLLER, 0, 0, 
                                                         Constants.THETA_CONTROLLER_CONSTRAINTS);
-        m_thetaController.enableContinuousInput(Math.PI, Math.PI); //TODO: tune this
+        //enable continuous output because we use falcons and thats what you do apparantly
+        m_thetaController.enableContinuousInput(-Constants.MAX_ANGULAR_VELOCITY, Constants.MAX_ANGULAR_VELOCITY);
 
+        //creates the swerve command
         SwerveControllerCommand swerveCommand = 
         new SwerveControllerCommand(m_trajectory, 
                                     m_swerveDrivetrain::getPose, 
@@ -55,6 +60,7 @@ public class DriveForwardAuto extends SequentialCommandGroup{
                                     m_swerveDrivetrain::setModuleStates, 
                                     m_swerveDrivetrain);
 
+        //commands to sequentially run in autonomous
         addCommands(
             new InstantCommand(() -> m_swerveDrivetrain.resetOdometry(m_trajectory.getInitialPose())), 
             swerveCommand
