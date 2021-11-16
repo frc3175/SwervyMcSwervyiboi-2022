@@ -77,7 +77,6 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     }    
 
-    /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.normalizeWheelSpeeds(desiredStates, Constants.MAX_SPEED);
         

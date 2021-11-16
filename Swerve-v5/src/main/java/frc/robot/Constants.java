@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.util.Units;
 
 public final class Constants {
 
-        public static final double STICK_DEADBAND = 0.1;
+        public static final double STICK_DEADBAND = 0.1; //tune this???
 
-        public static final boolean INVERT_GYRO = true; // Always ensure Gyro is CCW+ CW-
+        public static final boolean INVERT_GYRO = true; // Always ensure Gyro is CCW+ CW- !!!!!
 
         /* Drivetrain Constants */
         public static final double DRIVETRAIN_WIDTH = Units.inchesToMeters(18);
@@ -19,7 +19,7 @@ public final class Constants {
         public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
-        public static final double OPEN_LOOP_RAMP = 0.25;
+        public static final double OPEN_LOOP_RAMP = 0.25; //tune this as well??
         public static final double CLOSED_LOOP_RAMP = 0.0;
 
         public static final double DRIVE_GEAR_RATIO = (6.86 / 1.0); //6.86:1
@@ -29,10 +29,10 @@ public final class Constants {
                 new Translation2d(DRIVETRAIN_LENGTH / 2.0, DRIVETRAIN_WIDTH / 2.0),
                 new Translation2d(DRIVETRAIN_LENGTH / 2.0, -DRIVETRAIN_WIDTH / 2.0),
                 new Translation2d(-DRIVETRAIN_LENGTH / 2.0, DRIVETRAIN_WIDTH / 2.0),
-                new Translation2d(-DRIVETRAIN_LENGTH / 2.0, -DRIVETRAIN_WIDTH / 2.0)); //test comment
+                new Translation2d(-DRIVETRAIN_LENGTH / 2.0, -DRIVETRAIN_WIDTH / 2.0));
 
         /* Swerve Current Limiting */
-        public static final int AZIMUTH_CONTINUOUS_CURRENT_LIMIT = 25;
+        public static final int AZIMUTH_CONTINUOUS_CURRENT_LIMIT = 25; //should probably adjust current limiting too
         public static final int AZIMUTH_PEAK_CURRENT_LIMIT = 40;
         public static final double AZIMUTH_PEAK_CURRENT_DURATION = 0.1;
         public static final boolean AZIMUTH_ENABLE_CURRENT_LIMIT = true;
@@ -43,18 +43,18 @@ public final class Constants {
         public static final boolean DRIVE_ENABLE_CURRENT_LIMIT = true;
 
         /* Angle Motor PID Values */
-        public static final double AZIMUTH_P = 0.2;
+        public static final double AZIMUTH_P = 0.2; //tuning these at some point would be good
         public static final double AZIMUTH_I = 0.0;
         public static final double AZIMUTH_D = 0.1;
         public static final double AZIMUTH_F = 0.0;
 
         /* Drive Motor PID Values */
-        public static final double DRIVE_P = 0.0; //test
+        public static final double DRIVE_P = 0.0; //test these?? idk why we have no drive pidf
         public static final double DRIVE_I = 0.0;
         public static final double DRIVE_D = 0.0;
         public static final double DRIVE_F = 0.0;
 
-        //TODO: characterize these at some point (ugggggggghhhhhhhhhhhhh)
+        //TODO: characterize these at some point (ugggggggghhhhhhhhhhhhh fml)
         /* Drive Motor Characterization Values */
         public static final double DRIVE_S = (0.667 / 12); //divide by 12 to convert from volts to percent output for CTRE
         public static final double DRIVE_V = (2.44 / 12);

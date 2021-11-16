@@ -107,6 +107,7 @@ public class SwerveModule {
 
     }
 
+    //not actually using this anymore
     public void keepModuleWhereItIs(int moduleNumber) {
         m_azimuthMotor.setSelectedSensorPosition(Conversions.degreesToFalcon(
                                                  (SmartDashboard.getNumber("Mod " + moduleNumber + " Azimuth angle", 0) - m_offset), 
