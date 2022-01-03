@@ -73,9 +73,9 @@ public final class Constants {
     ==============================*/
 
      //CAN IDS
-    public static final int BACK_LEFT_DRIVE = 5; //Josh
+    public static final int BACK_LEFT_DRIVE = 13; //Josh
     public static final int BACK_LEFT_ENCODER = 4; //Gary 
-    public static final int BACK_LEFT_AZIMUTH = 3; //Tracy
+    public static final int BACK_LEFT_AZIMUTH = 14; //Tracy
 
     public static final int BACK_RIGHT_DRIVE = 8; //Happy
     public static final int BACK_RIGHT_ENCODER = 10; //Bre
@@ -85,9 +85,9 @@ public final class Constants {
     public static final int FRONT_RIGHT_ENCODER = 7; //Freddy Mercury
     public static final int FRONT_RIGHT_AZIMUTH = 9; //Beth
 
-     public static final int FRONT_LEFT_DRIVE = 2; //Chad
-     public static final int FRONT_LEFT_ENCODER = 1; //Jonathan 
-     public static final int FRONT_LEFT_AZIMUTH = 0; //Geraldine
+     public static final int FRONT_LEFT_DRIVE = 5; //Chad
+     public static final int FRONT_LEFT_ENCODER = 12; //Jonathan 
+     public static final int FRONT_LEFT_AZIMUTH = 3; //Geraldine
 
     /*============================
            Module Constants
