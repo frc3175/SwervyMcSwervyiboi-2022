@@ -20,7 +20,15 @@ public class TurnToTheta extends CommandBase {
 
     @Override 
     public void execute() {
-        
+
+        double currentAngle = m_drivetrain.getAngle();
+
+        boolean atAngle = Math.abs(currentAngle - m_desiredAngle) < 1;
+
+        if(!atAngle) {
+            
+        }
+
     }
 
 }

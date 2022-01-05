@@ -93,6 +93,11 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_swerveOdometry.resetPosition(pose, getYaw());
     }
 
+    public double getAngle() {
+        double angle = m_gyro.getYaw();
+        return angle;
+    }
+
     public SwerveModuleState[] getStates(){
         SwerveModuleState[] states = new SwerveModuleState[4];
         for(SwerveModule mod : m_swerveModules){
@@ -123,6 +128,41 @@ public class SwerveDrivetrain extends SubsystemBase {
         for(SwerveModule mod: m_swerveModules) {
             mod.zeroModule();
         }
+
+    }
+
+    //true = left, false = right
+    //Note: WILL ALWAYS RETURN A VALUE, EVEN IF CURRENT = DESIRED SO MAKE SURE TO ONLY RUN THIS METHOD WHEN CURRENT != DESIRED
+    public boolean optimizeTurning(double currentAngle, double desiredAngle) {
+
+        boolean isDesiredPositive = desiredAngle > 0;
+        boolean isCurrentPositive = currentAngle > 0;
+
+        double m_desiredAngle = Math.abs(desiredAngle);
+        double m_currentAngle = Math.abs(currentAngle);
+
+        double absTotal = Math.abs(currentAngle) + Math.abs(desiredAngle);
+
+        if(isDesiredPositive && isCurrentPositive) {
+            if(m_desiredAngle > m_currentAngle) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if(!isDesiredPositive && !isCurrentPositive) {
+            if(m_desiredAngle > m_currentAngle) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if(absTotal > 180) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        
 
     }
 
