@@ -32,7 +32,7 @@ public final class Constants {
                 new Translation2d(-DRIVETRAIN_LENGTH / 2.0, -DRIVETRAIN_WIDTH / 2.0));
 
         /* Swerve Current Limiting */
-        public static final int AZIMUTH_CONTINUOUS_CURRENT_LIMIT = 25; //should probably adjust current limiting too
+        public static final int AZIMUTH_CONTINUOUS_CURRENT_LIMIT = 25; //FIXME: Adjust these to stop brownouts
         public static final int AZIMUTH_PEAK_CURRENT_LIMIT = 40;
         public static final double AZIMUTH_PEAK_CURRENT_DURATION = 0.1;
         public static final boolean AZIMUTH_ENABLE_CURRENT_LIMIT = true;
@@ -43,13 +43,13 @@ public final class Constants {
         public static final boolean DRIVE_ENABLE_CURRENT_LIMIT = true;
 
         /* Angle Motor PID Values */
-        public static final double AZIMUTH_P = 0.2; //tuning these at some point would be good
+        public static final double AZIMUTH_P = 0.2; //FIXME: Tune all of these (drive pidf too) at some point too
         public static final double AZIMUTH_I = 0.0;
         public static final double AZIMUTH_D = 0.1;
         public static final double AZIMUTH_F = 0.0;
 
         /* Drive Motor PID Values */
-        public static final double DRIVE_P = 0.0; //test these?? idk why we have no drive pidf
+        public static final double DRIVE_P = 0.0; 
         public static final double DRIVE_I = 0.0;
         public static final double DRIVE_D = 0.0;
         public static final double DRIVE_F = 0.0;
@@ -62,7 +62,7 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         public static final double MAX_SPEED = Units.feetToMeters(16.2); //meters per second
-        public static final double MAX_ANGULAR_VELOCITY = Math.PI * 5.2;
+        public static final double MAX_ANGULAR_VELOCITY = Math.PI * 5.2; //TODO: decrease this to our liking by testing
 
         /* Neutral Modes */
         public static final NeutralMode AZIMUTH_NEUTRAL_MODE = NeutralMode.Coast;
@@ -123,10 +123,10 @@ public final class Constants {
 
     //RPS IS RADIANS PER SECOND
     //MPS IS METERS PER SECOND
-    public static final double AUTO_MAX_SPEED_MPS = 4.9;
+    public static final double AUTO_MAX_SPEED_MPS = 4.9; //FIXME: Adjust this to whatever speed we want for auto
     public static final double AUTO_MAX_ACCELERATION_MPS_SQUARED = 3;
     
-    public static final double AUTO_P_X_CONTROLLER = 1; //TODO: do these need to be tuned??
+    public static final double AUTO_P_X_CONTROLLER = 1; //TODO: tune these once I start auto
     public static final double AUTO_P_Y_CONTROLLER = 1;
     public static final double AUTO_P_THETA_CONTROLLER = 1;
     
