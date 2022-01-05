@@ -50,7 +50,8 @@ public class SwerveDrive extends CommandBase {
         xAxis = (Math.abs(xAxis) < Constants.STICK_DEADBAND) ? 0 : xAxis;
         rAxis = (Math.abs(rAxis) < Constants.STICK_DEADBAND) ? 0 : rAxis;
 
-        double rAxisSquared = rAxis * rAxis; //squares joysting inputs TODO: adjust this to how cooper likes it
+        //double rAxisSquared = (rAxis * rAxis) * (rAxis / Math.abs(rAxis));
+        double rAxisSquared = rAxis > 0 ? rAxis * rAxis : rAxis * rAxis * -1;
 
         m_translation = new Translation2d(yAxis, xAxis).times(Constants.MAX_SPEED);
         m_rotation = rAxisSquared * Constants.MAX_ANGULAR_VELOCITY;
