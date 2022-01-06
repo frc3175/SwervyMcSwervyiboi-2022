@@ -31,6 +31,7 @@ public class RobotContainer {
 
   /* Driver Buttons */
   private final JoystickButton m_zeroGyro = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+  private final JoystickButton m_turnTo90 = new JoystickButton(m_driverController, XboxController.Button.kB.value);
 
   /* Subsystems */
   private final SwerveDrivetrain m_swerveDrivetrain = new SwerveDrivetrain();
@@ -58,6 +59,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     m_zeroGyro.whenPressed(new InstantCommand(() -> m_swerveDrivetrain.resetGyro()));
+    m_turnTo90.whenPressed(new TurnToTheta(m_swerveDrivetrain, 90));
   }
 
   /**
