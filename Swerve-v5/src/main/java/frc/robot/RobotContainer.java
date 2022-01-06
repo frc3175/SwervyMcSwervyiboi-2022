@@ -59,7 +59,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     m_zeroGyro.whenPressed(new InstantCommand(() -> m_swerveDrivetrain.resetGyro()));
-    m_turnTo90.whenPressed(new TurnToTheta(m_swerveDrivetrain, 90));
+    m_turnTo90.whenPressed(new TurnToTheta(m_swerveDrivetrain, -90))
+              .whenReleased(new SwerveDrive(m_swerveDrivetrain, m_driverController, m_translationAxis, m_strafeAxis, m_rotationAxis, true, true));
   }
 
   /**

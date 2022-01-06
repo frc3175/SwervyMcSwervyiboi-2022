@@ -62,7 +62,7 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         public static final double MAX_SPEED = Units.feetToMeters(16.2); //meters per second
-        public static final double MAX_ANGULAR_VELOCITY = Math.PI * 4;
+        public static final double MAX_ANGULAR_VELOCITY = Math.PI * 3.2;
 
         /* Neutral Modes */
         public static final NeutralMode AZIMUTH_NEUTRAL_MODE = NeutralMode.Coast;
