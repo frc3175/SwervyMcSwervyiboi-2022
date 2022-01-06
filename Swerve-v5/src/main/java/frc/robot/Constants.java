@@ -68,6 +68,8 @@ public final class Constants {
         public static final NeutralMode AZIMUTH_NEUTRAL_MODE = NeutralMode.Coast;
         public static final NeutralMode DRIVE_NEUTRAL_MODE = NeutralMode.Brake;
 
+        public static final double TURN_IN_PLACE_SPEED = 0.5;
+
     /*============================
                CAN IDs
     ==============================*/
