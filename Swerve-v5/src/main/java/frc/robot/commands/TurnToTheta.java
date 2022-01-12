@@ -9,7 +9,7 @@ public class TurnToTheta extends CommandBase {
 
     private double m_desiredAngle;
     private SwerveDrivetrain m_drivetrain;
-    private Translation2d m_translation;
+    private Translation2d m_translation; 
 
     public TurnToTheta(SwerveDrivetrain drivetrain, double angle) {
         m_desiredAngle = angle;
