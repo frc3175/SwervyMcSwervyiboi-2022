@@ -12,10 +12,5 @@ Encoders - Drive encoder is the built in falcon encoder, angle is CTRE CANCoder
 
 Gyro - NavX gyro
 
-# Code
-
-Our code is a slightly modified version of 364's BaseFalconSwerve 
-(linked here: https://github.com/Team364/BaseFalconSwerve)
-
 
 
