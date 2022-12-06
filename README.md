@@ -1,6 +1,6 @@
-# Rogue-Swerve-2021
+# SwervyMcSwervyiboi-2022
 
-This is Knight Vision 3175's offseason swerve from Fall 2022
+Knight Vision 3175's offseason swerve from Fall 2022
 
 # Hardware
 
