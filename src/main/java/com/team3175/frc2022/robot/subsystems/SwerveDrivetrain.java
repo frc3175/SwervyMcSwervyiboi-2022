@@ -34,10 +34,6 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public SwerveDrivetrain() {
         m_gyro = new WPI_PigeonIMU(Constants.PIGEON);
-        /*m_gyro.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_3_GeneralAccel, 11000);
-        m_gyro.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_10_SixDeg_Quat, 12000);
-        m_gyro.setStatusFramePeriod(PigeonIMU_StatusFrame.RawStatus_4_Mag, 13000);
-        m_gyro.setStatusFramePeriod(PigeonIMU_StatusFrame.BiasedStatus_6_Accel, 14000); */
 
         m_swerveOdometry = new SwerveDriveOdometry(Constants.swerveKinematics, getYaw());
 
@@ -122,6 +118,25 @@ public class SwerveDrivetrain extends SubsystemBase {
         for(SwerveModule mod : m_swerveModules){
             mod.setDesiredState(desiredStates[mod.m_moduleNumber], false);
         }
+    }
+
+    /**
+     * 
+     * @param speeds current Chassis Speeds pulled from drive() method
+     * 
+     */
+
+
+    public void driftCorrection(ChassisSpeeds speeds){
+
+        double xy = Math.abs(speeds.vxMetersPerSecond) + Math.abs(speeds.vyMetersPerSecond);
+        
+        if(Math.abs(speeds.omegaRadiansPerSecond) > 0.0 || pXY <= 0) desiredHeading = getPose().getRotation().getDegrees();
+        
+        else if(xy > 0) speeds.omegaRadiansPerSecond += driftCorrectionPID.calculate(getPose().getRotation().getDegrees(), desiredHeading);
+        
+        pXY = xy;
+
     }
 
     /**
@@ -306,25 +321,6 @@ public class SwerveDrivetrain extends SubsystemBase {
             yawMod = yaw;
         }
         m_gyro.setYaw(yawMod);
-    }
-
-    /**
-     * 
-     * @param speeds current Chassis Speeds pulled from drive() method
-     * 
-     */
-
-
-    public void driftCorrection(ChassisSpeeds speeds){
-
-        double xy = Math.abs(speeds.vxMetersPerSecond) + Math.abs(speeds.vyMetersPerSecond);
-        
-        if(Math.abs(speeds.omegaRadiansPerSecond) > 0.0 || pXY <= 0) desiredHeading = getPose().getRotation().getDegrees();
-        
-        else if(xy > 0) speeds.omegaRadiansPerSecond += driftCorrectionPID.calculate(getPose().getRotation().getDegrees(), desiredHeading);
-        
-        pXY = xy;
-
     }
 
     /**
