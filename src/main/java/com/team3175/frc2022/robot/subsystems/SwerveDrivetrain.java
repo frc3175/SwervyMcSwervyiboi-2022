@@ -3,6 +3,7 @@ package com.team3175.frc2022.robot.subsystems;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -19,6 +20,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     public SwerveDriveOdometry m_swerveOdometry;
     public SwerveModule[] m_swerveModules;
     public WPI_PigeonIMU m_gyro;
+    double desiredHeading;
+    double pXY = 0;
+    PIDController driftCorrectionPID;
 
     /**
      * 
@@ -36,6 +40,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_gyro.setStatusFramePeriod(PigeonIMU_StatusFrame.BiasedStatus_6_Accel, 14000); */
 
         m_swerveOdometry = new SwerveDriveOdometry(Constants.swerveKinematics, getYaw());
+
+        driftCorrectionPID = new PIDController(0.07, 0.00, 0.004);
 
         m_swerveModules = new SwerveModule[] {
             new SwerveModule(0, 
@@ -98,6 +104,7 @@ public class SwerveDrivetrain extends SubsystemBase {
             module.setDesiredState(swerveModuleStates[module.m_moduleNumber], isOpenLoop);
         }
 
+        driftCorrection(getChassisSpeeds(translation.getX(), translation.getY(), rotation, getYaw()));
 
     }
 
@@ -127,6 +134,11 @@ public class SwerveDrivetrain extends SubsystemBase {
     
     public void setChassisSpeeds(ChassisSpeeds targetSpeeds) {
         setModuleStates(Constants.swerveKinematics.toSwerveModuleStates(targetSpeeds));
+    }
+
+    public ChassisSpeeds getChassisSpeeds(double vxMetersPerSecond, double vyMetersPerSecond, double omegaRadiansPerSecond, Rotation2d robotAngle) {
+        ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(vxMetersPerSecond, vyMetersPerSecond, omegaRadiansPerSecond, robotAngle);
+        return speeds;
     }
 
     /**
@@ -298,6 +310,25 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     /**
      * 
+     * @param speeds current Chassis Speeds pulled from drive() method
+     * 
+     */
+
+
+    public void driftCorrection(ChassisSpeeds speeds){
+
+        double xy = Math.abs(speeds.vxMetersPerSecond) + Math.abs(speeds.vyMetersPerSecond);
+        
+        if(Math.abs(speeds.omegaRadiansPerSecond) > 0.0 || pXY <= 0) desiredHeading = getPose().getRotation().getDegrees();
+        
+        else if(xy > 0) speeds.omegaRadiansPerSecond += driftCorrectionPID.calculate(getPose().getRotation().getDegrees(), desiredHeading);
+        
+        pXY = xy;
+
+    }
+
+    /**
+     * 
      * Updates odometry with current theta angle and module states
      * 
      * Pushes module cancoder and integrated encoder values, module velocities, and gyro angle to SmartDashboard
@@ -312,6 +343,12 @@ public class SwerveDrivetrain extends SubsystemBase {
         SmartDashboard.putNumber("pose x", getPose().getX());
         SmartDashboard.putNumber("pose y", getPose().getY());
         SmartDashboard.putNumber("pose rot", getPose().getRotation().getDegrees());
+
+        for(SwerveModule mod : m_swerveModules) {
+            SmartDashboard.putNumber("cancoder" + mod.m_moduleNumber, mod.getDriveEncoderDegrees());
+        }
+
+        SmartDashboard.putNumber("gyro", m_gyro.getYaw());
 
     }
 

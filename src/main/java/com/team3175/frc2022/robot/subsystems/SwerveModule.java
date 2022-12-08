@@ -158,6 +158,10 @@ public class SwerveModule {
         return m_driveMotor.getSelectedSensorPosition();
     }
 
+    public double getDriveEncoderDegrees() {
+        return m_canCoder.getAbsolutePosition();
+    }
+
     /**
      * 
      * @return SwerveModuleState state of the individual module

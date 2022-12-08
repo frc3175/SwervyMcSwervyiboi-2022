@@ -2,6 +2,7 @@ package com.team3175.frc2022.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -14,32 +15,30 @@ public final class Constants {
                Swerve 
     ==============================*/
 
-    //test changes
-
     /* CAN IDs */
-    public static final int BACK_LEFT_DRIVE = 5; //Josh
-    public static final int BACK_LEFT_ENCODER = 12; //Gary 
-    public static final int BACK_LEFT_AZIMUTH = 3; //Tracy
+    public static final int BACK_LEFT_DRIVE = 11; //Josh
+    public static final int BACK_LEFT_ENCODER = 7; //Gary 
+    public static final int BACK_LEFT_AZIMUTH = 9; //Tracy
 
-    public static final int BACK_RIGHT_DRIVE = 13; //Happy
-    public static final int BACK_RIGHT_ENCODER = 4; //Bre
-    public static final int BACK_RIGHT_AZIMUTH = 14; //Samuel
+    public static final int BACK_RIGHT_DRIVE = 3; //Happy
+    public static final int BACK_RIGHT_ENCODER = 12; //Bre
+    public static final int BACK_RIGHT_AZIMUTH = 5; //Samuel
 
-    public static final int FRONT_RIGHT_DRIVE = 11; //Keith
-    public static final int FRONT_RIGHT_ENCODER = 7; //Freddy Mercury
-    public static final int FRONT_RIGHT_AZIMUTH = 9; //Beth
+    public static final int FRONT_RIGHT_DRIVE = 17; //Keith
+    public static final int FRONT_RIGHT_ENCODER = 4; //Freddy Mercury
+    public static final int FRONT_RIGHT_AZIMUTH = 13; //Beth
 
-    public static final int FRONT_LEFT_DRIVE = 8; //Chad
+    public static final int FRONT_LEFT_DRIVE = 6; //Chad
     public static final int FRONT_LEFT_ENCODER = 10; //Jonathan 
-    public static final int FRONT_LEFT_AZIMUTH = 6; //Geraldine
+    public static final int FRONT_LEFT_AZIMUTH = 8; //Geraldine
 
-    public static final int PIGEON = 21;
+    public static final int PIGEON = 19;
 
     /* CANCoder offsets */
-    public static double FRONT_LEFT_OFFSET = 158.99;
-    public static double FRONT_RIGHT_OFFSET = 69.43;
-    public static double BACK_LEFT_OFFSET = 134.38;
-    public static double BACK_RIGHT_OFFSET = 136.17;
+    public static double FRONT_LEFT_OFFSET = 30.05;
+    public static double FRONT_RIGHT_OFFSET = 82.88;
+    public static double BACK_LEFT_OFFSET = 132.89;
+    public static double BACK_RIGHT_OFFSET = 237.90; 
 
     /* Azimuth reversed */
     public static boolean FRONT_LEFT_AZIMUTH_REVERSED = false;
@@ -96,11 +95,11 @@ public final class Constants {
     public static final NeutralMode DRIVE_NEUTRAL_MODE = NeutralMode.Brake;
 
     /* Swerve Gear Ratios */
-    public static final double DRIVE_GEAR_RATIO = (6.86 / 1.0); //6.86:1 from SDS
-    public static final double AZIMUTH_GEAR_RATIO = (12.8 / 1.0); //12.8:1 from SDS
+    public static final double DRIVE_GEAR_RATIO = (-6.75 / 1.0);
+    public static final double AZIMUTH_GEAR_RATIO = (-150.0 / 7.1);
 
     /* Swerve Profiling Values */
-    public static final double MAX_SPEED = (Units.feetToMeters(16.2)*0.25); //meters per second (theoretical from SDS)
+    public static final double MAX_SPEED = (Units.feetToMeters(16.2)); //meters per second (theoretical from SDS)
     public static final double MAX_ANGULAR_VELOCITY = Math.PI * 4.12; //radians per second (theoretical calculation)
     public static final double TURN_IN_PLACE_SPEED = 0.5;
     public static final double A_RATE_LIMITER = 2.0; //Slew Rate Limiter Constant
@@ -115,8 +114,8 @@ public final class Constants {
                Kinematics
     ==============================*/
 
-    public static final double DRIVETRAIN_WIDTH = Units.inchesToMeters(21.5);
-    public static final double DRIVETRAIN_LENGTH = Units.inchesToMeters(21);
+    public static final double DRIVETRAIN_WIDTH = Units.inchesToMeters(18.75);
+    public static final double DRIVETRAIN_LENGTH = Units.inchesToMeters(18.75);
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
     public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
@@ -141,7 +140,6 @@ public final class Constants {
     public static final double STICK_DEADBAND = 0.1;
     public static final int DRIVER_PORT = 0;
     public static final int OPERATOR_PORT = 1;
-    public static final int TEST_PORT = 5;
     public static final double OP_RUMBLE_PERCENT = 0.4;
     public static final double DRIVER_RUMBLE_PERCENT = 0.4;
     public static final RumbleType DRIVER_RUMBLE_LEFT = RumbleType.kLeftRumble;
