@@ -2,7 +2,6 @@ package com.team3175.frc2022.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;

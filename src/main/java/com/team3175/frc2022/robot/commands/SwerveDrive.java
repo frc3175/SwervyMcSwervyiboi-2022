@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import com.team3175.frc2022.robot.Constants;
 import com.team3175.frc2022.robot.subsystems.SwerveDrivetrain;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -25,6 +26,9 @@ public class SwerveDrive extends CommandBase {
 
     private SlewRateLimiter m_xAxisARateLimiter;
     private SlewRateLimiter m_yAxisARateLimiter;
+
+    private double m_desiredHeading;
+    private PIDController driftCorrectionPID;
 
     /**
      * 
@@ -50,6 +54,8 @@ public class SwerveDrive extends CommandBase {
         m_rotationAxis = rotationAxis;
         m_fieldRelative = fieldRelative;
         m_openLoop = openLoop;
+
+        m_desiredHeading = m_swerveDrivetrain.getPose().getRotation().getDegrees();
 
         m_xAxisARateLimiter = new SlewRateLimiter(Constants.A_RATE_LIMITER);
         m_yAxisARateLimiter = new SlewRateLimiter(Constants.A_RATE_LIMITER);
@@ -81,7 +87,13 @@ public class SwerveDrive extends CommandBase {
         /* Input variables into drive methods */
         m_translation = new Translation2d(yAxisFiltered, xAxisFiltered).times(Constants.MAX_SPEED);
         m_rotation = rAxisSquared * Constants.MAX_ANGULAR_VELOCITY * 0.5;
-        m_swerveDrivetrain.drive(m_translation, m_rotation, m_fieldRelative, m_openLoop);
+
+        if(rAxisSquared == 0) {
+            m_swerveDrivetrain.drive(m_translation, driftCorrectionPID.calculate(m_swerveDrivetrain.getPose().getRotation().getDegrees(), m_desiredHeading), m_fieldRelative, m_openLoop);
+        } else {
+            m_swerveDrivetrain.drive(m_translation, m_rotation, m_fieldRelative, m_openLoop);
+            m_desiredHeading = m_swerveDrivetrain.getPose().getRotation().getDegrees();
+        }
 
     }
 }
