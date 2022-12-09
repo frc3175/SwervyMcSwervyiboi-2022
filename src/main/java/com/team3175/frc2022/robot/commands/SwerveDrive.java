@@ -56,7 +56,7 @@ public class SwerveDrive extends CommandBase {
         m_openLoop = openLoop;
 
         m_desiredHeading = m_swerveDrivetrain.getPose().getRotation().getDegrees();
-        driftCorrectionPID = new PIDController(0.000004, 0.0, 0.0000000000003); //P: 0.03125, 0.015625, 0.0078125 D:0.00925
+        driftCorrectionPID = new PIDController(0.00000000000000001, 0.0, 0.00); //P: 0.03125, 0.015625, 0.0078125 D:0.00925
 
         m_xAxisARateLimiter = new SlewRateLimiter(Constants.A_RATE_LIMITER);
         m_yAxisARateLimiter = new SlewRateLimiter(Constants.A_RATE_LIMITER);
