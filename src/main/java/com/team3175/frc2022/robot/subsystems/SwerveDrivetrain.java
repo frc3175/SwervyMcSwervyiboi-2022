@@ -37,8 +37,6 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         m_swerveOdometry = new SwerveDriveOdometry(Constants.swerveKinematics, getYaw());
 
-        driftCorrectionPID = new PIDController(0.07, 0.00, 0.004);
-
         m_swerveModules = new SwerveModule[] {
             new SwerveModule(0, 
                              Constants.FRONT_LEFT_OFFSET, 
@@ -100,8 +98,6 @@ public class SwerveDrivetrain extends SubsystemBase {
             module.setDesiredState(swerveModuleStates[module.m_moduleNumber], isOpenLoop);
         }
 
-        driftCorrection(getChassisSpeeds(translation.getX(), translation.getY(), rotation, getYaw()));
-
     }
 
     /**
@@ -118,25 +114,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         for(SwerveModule mod : m_swerveModules){
             mod.setDesiredState(desiredStates[mod.m_moduleNumber], false);
         }
-    }
-
-    /**
-     * 
-     * @param speeds current Chassis Speeds pulled from drive() method
-     * 
-     */
-
-
-    public void driftCorrection(ChassisSpeeds speeds){
-
-        double xy = Math.abs(speeds.vxMetersPerSecond) + Math.abs(speeds.vyMetersPerSecond);
-        
-        if(Math.abs(speeds.omegaRadiansPerSecond) > 0.0 || pXY <= 0) desiredHeading = getPose().getRotation().getDegrees();
-        
-        else if(xy > 0) speeds.omegaRadiansPerSecond += driftCorrectionPID.calculate(getPose().getRotation().getDegrees(), desiredHeading);
-        
-        pXY = xy;
-
     }
 
     /**

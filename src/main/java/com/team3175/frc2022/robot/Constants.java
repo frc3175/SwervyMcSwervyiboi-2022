@@ -67,10 +67,10 @@ public final class Constants {
     public static final double AZIMUTH_F = 0.0;
 
     /* Drive Motor PID Values */
-    public static final double DRIVE_P = 0.0; 
+    public static final double DRIVE_P = -0.1;  //0.1
     public static final double DRIVE_I = 0.0;
     public static final double DRIVE_D = 0.0;
-    public static final double DRIVE_F = 0.0;
+    public static final double DRIVE_F = 0.001;
 
     /* Drive Motor Characterization Values */
     public static final double DRIVE_S = (0.48665 / 12); //Values from SysId divided by 12 to convert to volts for CTRE
