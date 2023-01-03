@@ -48,7 +48,7 @@ public class RobotContainer {
 
     /* Set Drive as default command*/
     boolean fieldRelative = true;
-    boolean openLoop = false;
+    boolean openLoop = true;
     m_swerveDrivetrain.setDefaultCommand(new SwerveDrive(m_swerveDrivetrain, 
       m_driverController, m_translationAxis, m_strafeAxis, m_rotationAxis, fieldRelative, openLoop));
     

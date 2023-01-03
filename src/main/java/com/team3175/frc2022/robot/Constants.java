@@ -2,6 +2,9 @@ package com.team3175.frc2022.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -123,6 +126,35 @@ public final class Constants {
         new Translation2d(DRIVETRAIN_LENGTH / 2.0, -DRIVETRAIN_WIDTH / 2.0),
         new Translation2d(-DRIVETRAIN_LENGTH / 2.0, DRIVETRAIN_WIDTH / 2.0),
         new Translation2d(-DRIVETRAIN_LENGTH / 2.0, -DRIVETRAIN_WIDTH / 2.0));
+
+    /*============================
+                Vision
+    ==============================*/
+
+    /**
+     * Physical location of the camera on the robot, relative to the center of the robot.
+     */
+    public static final Transform2d CAMERA_TO_ROBOT =
+        new Transform2d(new Translation2d(-0.4, 0.0), new Rotation2d());
+    public static final Transform2d ROBOT_TO_CAMERA = CAMERA_TO_ROBOT.inverse();
+
+    /*============================
+                Auton
+    ==============================*/
+
+    public static final double AUTO_P_X_CONTROLLER = 0.1; 
+    public static final double AUTO_P_Y_CONTROLLER = 1.4884;
+    public static final double AUTO_P_THETA_CONTROLLER = 2.8;
+    public static final double AUTO_MAX_SPEED = Units.feetToMeters(4.9);
+    public static final double AUTO_MAX_ACCELERATION_MPS_SQUARED = 3;
+
+    public static final TrapezoidProfile.Constraints X_AUTO_CONSTRAINTS = new TrapezoidProfile.Constraints(MAX_ANGULAR_VELOCITY, AUTO_MAX_ACCELERATION_MPS_SQUARED);
+    public static final TrapezoidProfile.Constraints Y_AUTO_CONSTRAINTS = new TrapezoidProfile.Constraints(MAX_ANGULAR_VELOCITY, AUTO_MAX_ACCELERATION_MPS_SQUARED);
+    public static final TrapezoidProfile.Constraints THETA_AUTO_CONSTRAINTS = new TrapezoidProfile.Constraints(Math.PI, (Math.PI * Math.PI));
+
+    public static final ProfiledPIDController AUTO_X_CONTROLLER = new ProfiledPIDController(AUTO_P_X_CONTROLLER, 0, 0, X_AUTO_CONSTRAINTS);
+    public static final ProfiledPIDController AUTO_Y_CONTROLLER = new ProfiledPIDController(AUTO_P_Y_CONTROLLER, 0, 0, Y_AUTO_CONSTRAINTS);
+    public static final ProfiledPIDController AUTO_THETA_CONTROLLER = new ProfiledPIDController(AUTO_P_THETA_CONTROLLER, 0, 0, THETA_AUTO_CONSTRAINTS);
 
     /*============================
                 Misc.

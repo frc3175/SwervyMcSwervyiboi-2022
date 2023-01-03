@@ -300,6 +300,19 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_gyro.setYaw(yawMod);
     }
 
+    /*
+     * 
+     * Stop swerve drivetrain
+     * 
+     */
+
+    public void stopSwerve() {
+
+        Translation2d stop = new Translation2d(0, 0);
+        drive(stop, 0, true, true);
+
+    }
+
     /**
      * 
      * Updates odometry with current theta angle and module states
