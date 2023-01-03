@@ -50,19 +50,23 @@ public class FollowAprilTag extends CommandBase {
     omegaController.enableContinuousInput(-Math.PI, Math.PI);
 
     addRequirements(m_drivetrain);
+
   }
 
   @Override
   public void initialize() {
+
     lastTarget = null;
     var robotPose = m_poseProvider.get();
     omegaController.reset(robotPose.getRotation().getRadians());
     xController.reset(robotPose.getX());
     yController.reset(robotPose.getY());
+
   }
 
   @Override
   public void execute() {
+
     var robotPose2d = m_poseProvider.get();
     var robotPose = 
         new Pose3d(
@@ -122,6 +126,7 @@ public class FollowAprilTag extends CommandBase {
 
       m_drivetrain.drive(new Translation2d(xSpeed, ySpeed), omegaSpeed, true, true);
     }
+
   }
 
   @Override
