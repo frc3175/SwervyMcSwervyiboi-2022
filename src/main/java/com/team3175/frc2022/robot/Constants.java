@@ -3,9 +3,10 @@ package com.team3175.frc2022.robot;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
@@ -134,9 +135,9 @@ public final class Constants {
     /**
      * Physical location of the camera on the robot, relative to the center of the robot.
      */
-    public static final Transform2d CAMERA_TO_ROBOT =
-        new Transform2d(new Translation2d(-0.4, 0.0), new Rotation2d());
-    public static final Transform2d ROBOT_TO_CAMERA = CAMERA_TO_ROBOT.inverse();
+    public static final Transform3d CAMERA_TO_ROBOT =
+        new Transform3d(new Translation3d(-0.4, 0.0, 0.0), new Rotation3d());
+    public static final Transform3d ROBOT_TO_CAMERA = CAMERA_TO_ROBOT.inverse();
 
     /*============================
                 Auton

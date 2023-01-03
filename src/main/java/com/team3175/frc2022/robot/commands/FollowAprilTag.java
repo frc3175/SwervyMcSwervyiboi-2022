@@ -5,15 +5,18 @@ import static com.team3175.frc2022.robot.Constants.ROBOT_TO_CAMERA;
 import java.util.function.Supplier;
 
 import org.photonvision.*;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import com.team3175.frc2022.robot.Constants;
 import com.team3175.frc2022.robot.subsystems.SwerveDrivetrain;
 
@@ -24,10 +27,10 @@ public class FollowAprilTag extends CommandBase {
   private final ProfiledPIDController omegaController = Constants.AUTO_THETA_CONTROLLER;
 
   private static int TAG_TO_CHASE = 2;
-  private static final Transform2d TAG_TO_GOAL = 
-      new Transform2d(
-          new Translation2d(1.5, 0.0),
-          new Rotation2d(Math.PI));
+  private static final Transform3d TAG_TO_GOAL = 
+      new Transform3d(
+          new Translation3d(1.5, 0.0, 0.0),
+          new Rotation3d(0.0, 0.0, Math.PI));
 
   private final PhotonCamera m_photonCamera;
   private final SwerveDrivetrain m_drivetrain;
@@ -62,10 +65,11 @@ public class FollowAprilTag extends CommandBase {
   public void execute() {
     var robotPose2d = m_poseProvider.get();
     var robotPose = 
-        new Pose2d(
+        new Pose3d(
             robotPose2d.getX(),
             robotPose2d.getY(),
-            Rotation2d.fromDegrees(robotPose2d.getRotation().getRadians()));
+            0.0,
+            new Rotation3d(0.0, 0.0, robotPose2d.getRotation().getRadians()));
     
     var photonRes = m_photonCamera.getLatestResult();
     if (photonRes.hasTargets()) {
@@ -80,7 +84,7 @@ public class FollowAprilTag extends CommandBase {
         lastTarget = target;
         
         // Transform the robot's pose to find the camera's pose
-        var cameraPose = robotPose.transformBy(ROBOT_TO_CAMERA);
+        Pose3d cameraPose = robotPose.transformBy(ROBOT_TO_CAMERA);
 
         // Trasnform the camera's pose to the target's pose
         var camToTarget = target.getBestCameraToTarget();
@@ -122,7 +126,7 @@ public class FollowAprilTag extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.stop();
+    m_drivetrain.stopSwerve();
   }
 
   public void setTagToChase(int tagToChase){
