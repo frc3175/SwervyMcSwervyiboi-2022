@@ -1,0 +1,24 @@
+{
+  "CameraPublisher": {
+    "open": true
+  },
+  "FMSInfo": {
+    "open": true
+  },
+  "LiveWindow": {
+    "open": true
+  },
+  "NetworkTables Settings": {
+    "mode": "Client",
+    "serverTeam": "7140"
+  },
+  "SmartDashboard": {
+    "open": true
+  },
+  "photonvision": {
+    "gloworm": {
+      "open": true
+    },
+    "open": true
+  }
+}

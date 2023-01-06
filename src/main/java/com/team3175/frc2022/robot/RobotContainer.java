@@ -8,6 +8,8 @@ import com.team3175.frc2022.lib.math.Conversions;
 import com.team3175.frc2022.robot.commands.*;
 import com.team3175.frc2022.robot.subsystems.*;
 
+import org.photonvision.PhotonCamera;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -33,6 +35,9 @@ public class RobotContainer {
   /* Controllers */
   private final XboxController m_driverController = new XboxController(Constants.DRIVER_PORT);
 
+  /* Camera */
+  private final PhotonCamera photonCamera = new PhotonCamera("gloworm");
+
   /* Drive Axes */
   private final int m_translationAxis = XboxController.Axis.kLeftY.value;
   private final int m_strafeAxis = XboxController.Axis.kLeftX.value;
@@ -40,9 +45,13 @@ public class RobotContainer {
 
   /* Driver Buttons */
   private final JoystickButton m_zeroGyro = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  private final JoystickButton m_trackAprilTag = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
 
   /* Subsystems */
   private final SwerveDrivetrain m_swerveDrivetrain = new SwerveDrivetrain();
+
+  /* Commands */
+  private final FollowAprilTag m_followAprilTag = new FollowAprilTag(photonCamera, m_swerveDrivetrain);
 
   public RobotContainer(){
 
@@ -69,6 +78,9 @@ public class RobotContainer {
 
     //Zero Gyro -> X Button
     m_zeroGyro.whenPressed(new InstantCommand(() -> m_swerveDrivetrain.resetGyro()));
+
+    //Track April Tag -> Left Bumper
+    m_trackAprilTag.whenPressed(m_followAprilTag);
 
 
   }

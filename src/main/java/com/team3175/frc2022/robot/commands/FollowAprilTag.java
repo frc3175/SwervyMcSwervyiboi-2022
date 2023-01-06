@@ -2,19 +2,17 @@ package com.team3175.frc2022.robot.commands;
 
 import static com.team3175.frc2022.robot.Constants.ROBOT_TO_CAMERA;
 
-import java.util.function.Supplier;
-
 import org.photonvision.*;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import com.team3175.frc2022.robot.Constants;
@@ -29,20 +27,18 @@ public class FollowAprilTag extends CommandBase {
   private static int TAG_TO_CHASE = 2;
   private static final Transform3d TAG_TO_GOAL = 
       new Transform3d(
-          new Translation3d(1.5, 0.0, 0.0),
+          new Translation3d(1, 0.0, 0.0),
           new Rotation3d(0.0, 0.0, Math.PI));
 
   private final PhotonCamera m_photonCamera;
   private final SwerveDrivetrain m_drivetrain;
-  private final Supplier<Pose2d> m_poseProvider;
 
   private PhotonTrackedTarget lastTarget;
 
-  public FollowAprilTag(PhotonCamera photonCamera, SwerveDrivetrain drivetrain, Supplier<Pose2d> poseProvider) {
+  public FollowAprilTag(PhotonCamera photonCamera, SwerveDrivetrain drivetrain) {
 
     m_photonCamera = photonCamera;
     m_drivetrain = drivetrain;
-    m_poseProvider = poseProvider;
 
     xController.setTolerance(0.2);
     yController.setTolerance(0.2);
@@ -57,7 +53,7 @@ public class FollowAprilTag extends CommandBase {
   public void initialize() {
 
     lastTarget = null;
-    var robotPose = m_poseProvider.get();
+    var robotPose = m_drivetrain.getPose();
     omegaController.reset(robotPose.getRotation().getRadians());
     xController.reset(robotPose.getX());
     yController.reset(robotPose.getY());
@@ -67,13 +63,17 @@ public class FollowAprilTag extends CommandBase {
   @Override
   public void execute() {
 
-    var robotPose2d = m_poseProvider.get();
+    var robotPose2d = m_drivetrain.getPose();
     var robotPose = 
         new Pose3d(
             robotPose2d.getX(),
             robotPose2d.getY(),
             0.0,
             new Rotation3d(0.0, 0.0, robotPose2d.getRotation().getRadians()));
+
+    SmartDashboard.putNumber("pose x", robotPose2d.getX());
+    SmartDashboard.putNumber("pose y", robotPose2d.getY());
+    SmartDashboard.putNumber("pose rot", robotPose2d.getRotation().getDegrees());
     
     var photonRes = m_photonCamera.getLatestResult();
     if (photonRes.hasTargets()) {
@@ -86,16 +86,27 @@ public class FollowAprilTag extends CommandBase {
         var target = targetOpt.get();
         // This is new target data, so recalculate the goal
         lastTarget = target;
+
+        SmartDashboard.putNumber("target num", target.getFiducialId());
         
         // Transform the robot's pose to find the camera's pose
         Pose3d cameraPose = robotPose.transformBy(ROBOT_TO_CAMERA);
 
-        // Trasnform the camera's pose to the target's pose
+        SmartDashboard.putNumber("cam pose x", cameraPose.getX());
+        SmartDashboard.putNumber("cam pose y", cameraPose.getY());
+        SmartDashboard.putNumber("cam pose z", cameraPose.getZ());
+        SmartDashboard.putNumber("cam pose rot", cameraPose.getRotation().getAngle());
+
+        // Transform the camera's pose to the target's pose
         var camToTarget = target.getBestCameraToTarget();
         var targetPose = cameraPose.transformBy(camToTarget);
         
         // Transform the tag's pose to set our goal
         var goalPose = targetPose.transformBy(TAG_TO_GOAL).toPose2d();
+
+        SmartDashboard.putNumber("goal pose x", goalPose.getX());
+        SmartDashboard.putNumber("goal pose y", goalPose.getY());
+        SmartDashboard.putNumber("goal pose rot", goalPose.getRotation().getDegrees());
 
         // Drive
         xController.setGoal(goalPose.getX());
@@ -124,7 +135,12 @@ public class FollowAprilTag extends CommandBase {
         omegaSpeed = 0;
       }
 
-      m_drivetrain.drive(new Translation2d(xSpeed, ySpeed), omegaSpeed, true, true);
+      SmartDashboard.putNumber("xspeed", xSpeed);
+      SmartDashboard.putNumber("yspeed", ySpeed);
+      SmartDashboard.putNumber("omegaspeed", omegaSpeed);
+
+      m_drivetrain.setChassisSpeeds(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, omegaSpeed, robotPose2d.getRotation()));
+      
     }
 
   }

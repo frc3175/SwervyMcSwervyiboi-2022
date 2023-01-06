@@ -99,7 +99,7 @@ public final class Constants {
 
     /* Swerve Gear Ratios */
     public static final double DRIVE_GEAR_RATIO = (-6.75 / 1.0);
-    public static final double AZIMUTH_GEAR_RATIO = (-150.0 / 7.1);
+    public static final double AZIMUTH_GEAR_RATIO = (-150.0 / 7);
 
     /* Swerve Profiling Values */
     public static final double MAX_SPEED = (Units.feetToMeters(16.2)); //meters per second (theoretical from SDS)
@@ -136,7 +136,7 @@ public final class Constants {
      * Physical location of the camera on the robot, relative to the center of the robot.
      */
     public static final Transform3d CAMERA_TO_ROBOT =
-        new Transform3d(new Translation3d(-0.4, 0.0, 0.0), new Rotation3d());
+        new Transform3d(new Translation3d(-0.3, 0.0, 0.0), new Rotation3d());
     public static final Transform3d ROBOT_TO_CAMERA = CAMERA_TO_ROBOT.inverse();
 
     /*============================
@@ -149,8 +149,8 @@ public final class Constants {
     public static final double AUTO_MAX_SPEED = Units.feetToMeters(4.9);
     public static final double AUTO_MAX_ACCELERATION_MPS_SQUARED = 3;
 
-    public static final TrapezoidProfile.Constraints X_AUTO_CONSTRAINTS = new TrapezoidProfile.Constraints(MAX_ANGULAR_VELOCITY, AUTO_MAX_ACCELERATION_MPS_SQUARED);
-    public static final TrapezoidProfile.Constraints Y_AUTO_CONSTRAINTS = new TrapezoidProfile.Constraints(MAX_ANGULAR_VELOCITY, AUTO_MAX_ACCELERATION_MPS_SQUARED);
+    public static final TrapezoidProfile.Constraints X_AUTO_CONSTRAINTS = new TrapezoidProfile.Constraints(AUTO_MAX_SPEED, AUTO_MAX_ACCELERATION_MPS_SQUARED);
+    public static final TrapezoidProfile.Constraints Y_AUTO_CONSTRAINTS = new TrapezoidProfile.Constraints(AUTO_MAX_SPEED, AUTO_MAX_ACCELERATION_MPS_SQUARED);
     public static final TrapezoidProfile.Constraints THETA_AUTO_CONSTRAINTS = new TrapezoidProfile.Constraints(Math.PI, (Math.PI * Math.PI));
 
     public static final ProfiledPIDController AUTO_X_CONTROLLER = new ProfiledPIDController(AUTO_P_X_CONTROLLER, 0, 0, X_AUTO_CONSTRAINTS);
